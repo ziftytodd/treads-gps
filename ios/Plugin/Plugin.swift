@@ -14,4 +14,23 @@ public class TreadsGps: CAPPlugin {
             "value": value
         ])
     }
+
+    @objc func checkStatus(_ call: CAPPluginCall) {
+      call.success([
+          "dataSaver": "unknown",
+          "ignoreBatteryOptimization": "unknown"
+      ])
+    }
+
+    @objc func requestIgnoreBatteryOptimization(_ call: CAPPluginCall) {
+      call.success([
+          "success": false
+      ])
+    }
+
+    @objc func requestIgnoreDataSaver(_ call: CAPPluginCall) {
+      call.success([
+          "success": false
+      ])
+    }
 }
