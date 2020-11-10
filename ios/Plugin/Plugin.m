@@ -1,3 +1,11 @@
+//
+//  Plugin.m
+//  Plugin
+//
+//  Created by Todd Miller on 11/10/20.
+//  Copyright © 2020 Max Lynch. All rights reserved.
+//
+
 #import <Foundation/Foundation.h>
 #import <Capacitor/Capacitor.h>
 
