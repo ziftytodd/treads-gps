@@ -7,6 +7,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebView;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
@@ -29,7 +32,47 @@ public class TreadsGps extends Plugin {
     }
 
     @PluginMethod
+    public void keepWebviewAwake(PluginCall call) {
+        stayAwake();
+
+        JSObject ret = new JSObject();
+        ret.put("success", true);
+        call.success(ret);
+    }
+
+    private void stayAwake() {
+        Log.d("TreadsX", "Starting stayAwake");
+
+        final WebView wb = this.getBridge().getWebView();
+
+        Thread thread = new Thread(){
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+
+                    // Will this "resume timers"?
+                    Log.d("TreadsX", "staying awake");
+                    wb.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d("TreadsX", "Actual stayAwake");
+                            wb.resumeTimers();
+                            wb.dispatchWindowVisibilityChanged(View.VISIBLE);
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    // do nothing
+                }
+            }
+        };
+
+        thread.start();
+    }
+
+    @PluginMethod
     public void checkStatus(PluginCall call) {
+        stayAwake();
+
         // { dataSaver: string, ignoreBatteryOptimization: string }
         String batt = "unknown";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

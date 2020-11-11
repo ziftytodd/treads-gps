@@ -15,6 +15,12 @@ public class TreadsGps: CAPPlugin {
         ])
     }
 
+    @objc func keepWebviewAwake(_ call: CAPPluginCall) {
+      call.success([
+          "success": true
+      ])
+    }
+
     @objc func checkStatus(_ call: CAPPluginCall) {
       call.success([
           "dataSaver": "unknown",

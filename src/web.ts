@@ -18,12 +18,16 @@ export class TreadsGpsWeb extends WebPlugin implements TreadsGpsPlugin {
     return { dataSaver: 'false', ignoreBatteryOptimization: 'false' };
   }
 
+  async keepWebviewAwake(): Promise<{ success: boolean }> {
+    return { success: false };
+  }
+
   async requestIgnoreBatteryOptimization(): Promise<{ success: boolean }> {
-    return { success: true };
+    return { success: false };
   }
 
   async requestIgnoreDataSaver(): Promise<{ success: boolean }> {
-    return { success: true };
+    return { success: false };
   }
 }
 
